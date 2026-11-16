@@ -1,0 +1,25 @@
+
+name: Build PSP EBOOT
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: pspdev/pspdev:latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Build EBOOT
+        run: make
+      - name: Upload EBOOT
+        uses: actions/upload-artifact@v4
+        with:
+          name: Acik-Dunya-Surus-EBOOT
+          path: EBOOT.PBP
+          if-no-files-found: error
+          
